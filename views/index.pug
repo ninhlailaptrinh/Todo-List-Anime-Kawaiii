@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Anime To-Do List
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    .anime-character.left (◕‿◕)
+    .anime-character.right (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+    
+    .container
+      h1 To-Do List Kawaii
+      
+      a(href="/add").btn.btn-primary(style="margin-bottom: 20px; display: inline-block")
+        | Thêm mới 
+        span.emoji ✨
+      
+      ul.todo-list
+        each todo in todos
+          li.todo-item
+            p.todo-text= todo.description
+            .todo-actions
+              a(href=`/edit/${todo._id}`).btn.btn-success
+                | Sửa 
+                span.emoji ✏️
+              a(href=`/delete/${todo._id}`).btn.btn-danger
+                | Xóa 
+                span.emoji 🗑️

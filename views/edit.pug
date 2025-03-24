@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title Sửa công việc
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap")
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    .anime-character.left (◠‿◠)
+    .anime-character.right ヽ(♡‿♡)ノ
+    
+    .container
+      h1 Sửa công việc
+      
+      form(action=`/edit/${todo._id}` method="POST").edit-form
+        .form-group
+          input(type="text", name="description", value=todo.description, required).input-text
+        
+        .form-group(style="justify-content: center")
+          button(type="submit").btn.btn-primary
+            | Lưu 
+            span.emoji 💾
+          a(href="/").btn.btn-danger
+            | Quay lại 
+            span.emoji ↩️
+
+    script.
+      document.querySelector('form').addEventListener('submit', function() {
+        const btn = this.querySelector('button');
+        btn.innerHTML = 'Đang lưu <span class="emoji">⏳</span>';
+        btn.disabled = true;
+      });
