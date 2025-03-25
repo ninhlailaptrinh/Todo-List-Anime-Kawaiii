@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Thêm công việc mới
+    title Thêm hoạt động mới
     link(
       rel="stylesheet",
       href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
@@ -12,14 +12,14 @@ html
     .anime-character.right ヽ(★‿★)ノ
 
     .container
-      h1 Thêm công việc mới
+      h1 Thêm ghi chú mới
 
       form.add-form(action="/add", method="POST")
         .form-group
           input.input-text(
             type="text",
             name="description",
-            placeholder="Nhập công việc mới...",
+            placeholder="Nhập ghi chú mới...",
             required
           )
 
