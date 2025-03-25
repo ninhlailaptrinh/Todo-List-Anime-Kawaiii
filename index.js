@@ -33,12 +33,9 @@ const Todo = mongoose.model("todo", todoSchema, "todos");
 
 // Kết nối với MongoDB
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB successfully"))
-  .catch((err) => console.log("Error connecting to MongoDB:", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Route cho trang chủ
 app.get("/", async (req, res) => {

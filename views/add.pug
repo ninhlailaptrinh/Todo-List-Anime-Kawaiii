@@ -2,30 +2,38 @@ doctype html
 html
   head
     title Thêm công việc mới
-    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap")
+    link(
+      rel="stylesheet",
+      href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap"
+    )
     link(rel="stylesheet", href="/css/style.css")
   body
     .anime-character.left (◕‿◕)ノ
     .anime-character.right ヽ(★‿★)ノ
-    
+
     .container
       h1 Thêm công việc mới
-      
-      form(action="/add" method="POST").add-form
+
+      form.add-form(action="/add", method="POST")
         .form-group
-          input(type="text", name="description", placeholder="Nhập công việc mới...", required).input-text
-        
+          input.input-text(
+            type="text",
+            name="description",
+            placeholder="Nhập công việc mới...",
+            required
+          )
+
         .form-group(style="justify-content: center")
-          button(type="submit").btn.btn-primary
-            | Thêm 
+          button.btn.btn-primary(type="submit")
+            | Thêm
             span.emoji 🌟
-          a(href="/").btn.btn-danger
-            | Quay lại 
+          a.btn.btn-danger(href="/")
+            | Quay lại
             span.emoji ↩️
 
     script.
-      document.querySelector('form').addEventListener('submit', function() {
-        const btn = this.querySelector('button');
+      document.querySelector("form").addEventListener("submit", function () {
+        const btn = this.querySelector("button");
         btn.innerHTML = 'Đang thêm <span class="emoji">⏳</span>';
         btn.disabled = true;
       });
