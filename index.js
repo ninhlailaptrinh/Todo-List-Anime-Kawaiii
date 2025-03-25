@@ -1,43 +1,39 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 
 require("dotenv").config();
 
-// Set up view engine
+// Cấu hình view engine với đường dẫn tuyệt đối
 app.set("view engine", "pug");
-app.set("views", "./views");
-app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Khai báo Todo Schema
-const todoSchema = new mongoose.Schema(
-  {
-    description: String,
-    deleted: {
-      type: Boolean,
-      default: false,
-    },
-    deleteAt: Date,
-  },
-  {
-    timestamps: true,
-  },
-);
-
-// Tạo model Todo từ schema
-const Todo = mongoose.model("todo", todoSchema, "todos");
-
-// Kết nối với MongoDB
+// Kết nối MongoDB
 mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("Connected to MongoDB successfully"))
+  .connect(process.env.MONGODB_URI || process.env.MONGO_URL)
+  .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Route cho trang chủ
+// Model Todo
+const Todo = mongoose.model(
+  "Todo",
+  new mongoose.Schema(
+    {
+      description: String,
+      deleted: { type: Boolean, default: false },
+      deleteAt: Date,
+    },
+    { timestamps: true },
+  ),
+);
+
+// Routes
 app.get("/", async (req, res) => {
   try {
     const todos = await Todo.find({ deleted: false });
@@ -47,7 +43,6 @@ app.get("/", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 // Route thêm công việc
 app.get("/add", (req, res) => {
   res.render("add");
@@ -117,3 +112,4 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+module.exports = app;
